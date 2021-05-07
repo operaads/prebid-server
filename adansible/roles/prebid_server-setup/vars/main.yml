@@ -6,4 +6,4 @@ prebid_server_local_dir: ..
 prebid_server_bin: prebid-server
 prebid_server_target_dir: /opt/prebid_server
 prebid_server_log_dir: /var/log/prebid_server
-prebid_server_conf: pro.cfg
+prebid_server_conf: pro.yml
