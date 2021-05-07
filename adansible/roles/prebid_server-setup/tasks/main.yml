@@ -38,6 +38,7 @@
     dest: /etc/supervisor/conf.d/prebid_server.conf
 
 - name: deploy prebid_server conf
+  become: yes
   copy:
     src: "{{ prebid_server_local_dir }}/conf/{{ prebid_server_conf }}"
     dest: "{{ prebid_server_target_dir }}/pbs.yml"
