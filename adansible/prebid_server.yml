@@ -1,0 +1,6 @@
+---
+- name: Install Prebid Server
+  hosts: prebid_server
+  roles:
+    - { role: prebid_server-setup, prebid_server_conf: "test.cfg", tags: "test" }
+    - { role: prebid_server-setup, tags: "pro" }

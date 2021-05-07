@@ -1,0 +1,8 @@
+[program:prebid_server]
+user={{ prebid_server_user }}
+directory={{ prebid_server_target_dir }}
+command={{ prebid_server_target_dir }}/{{ prebid_server_bin }}
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/prebid_server.log

@@ -1,0 +1,68 @@
+---
+# tasks file for prebid_server-setup
+- name: ensure group {{ prebid_server_group }} exist
+  become: yes
+  group:
+    name: "{{ prebid_server_group }}"
+    state: present
+
+- name: ensure user {{ prebid_server_user }} exist
+  become: yes
+  user:
+    name: "{{ prebid_server_user }}"
+    group: "{{ prebid_server_group }}"
+    state: present
+
+- name: ensure {{ prebid_server_dir }} exist
+  become: yes
+  file:
+    path: "{{ prebid_server_target_dir }}"
+    state: directory
+    owner: "sdev"
+    group: "sdev"
+    mode: 0755
+
+- name: ensure {{ prebid_server_log_dir }} exist
+  become: yes
+  file:
+    path: "{{ prebid_server_log_dir }}"
+    state: directory
+    owner: "{{ prebid_server_user }}"
+    group: "{{ prebid_server_group }}"
+    mode: 0755
+
+- name: deploy supervisor conf for prebid_server
+  become: yes
+  template:
+    src: prebid_server.conf.j2
+    dest: /etc/supervisor/conf.d/prebid_server.conf
+
+- name: deploy prebid_server conf
+  copy:
+    src: "{{ prebid_server_local_dir }}/conf/{{ prebid_server_conf }}"
+    dest: "{{ prebid_server_target_dir }}/pbs.yml"
+    owner: "sdev"
+    group: "sdev"
+    mode: 0755
+    force: yes
+
+- name: deploy prebid_server bin
+  copy:
+    src: "{{ prebid_server_local_dir }}/{{ prebid_server_bin }}"
+    dest: "{{ prebid_server_target_dir }}/"
+    owner: "sdev"
+    group: "sdev"
+    mode: 0755
+    force: yes
+
+- name: present prebid_server
+  become: yes
+  supervisorctl:
+    name: prebid_server
+    state: present
+
+- name: restart prebid_server
+  become: yes
+  supervisorctl:
+    name: prebid_server
+    state: restarted
