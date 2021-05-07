@@ -1,7 +1,7 @@
 ---
 # vars file for prebid_server-setup
-prebid_server_user: sdev
-prebid_server_group: sdev
+prebid_server_user: www-data
+prebid_server_group: www-data
 prebid_server_local_dir: ..
 prebid_server_bin: prebid-server
 prebid_server_target_dir: /opt/prebid_server

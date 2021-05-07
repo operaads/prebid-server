@@ -37,6 +37,11 @@
     src: prebid_server.conf.j2
     dest: /etc/supervisor/conf.d/prebid_server.conf
 
+- name: deploy prebid_server static data
+  synchronize:
+    src: "{{ prebid_server_local_dir }}/static"
+    dest: "{{ prebid_server_target_dir }}"
+
 - name: deploy prebid_server conf
   become: yes
   copy:
