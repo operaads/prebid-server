@@ -1,0 +1,1 @@
+curl -v -X POST -H "Content-Type: application/json" -d @$1 http://localhost:8000/openrtb2/auction
