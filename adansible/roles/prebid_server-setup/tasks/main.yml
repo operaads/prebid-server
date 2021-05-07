@@ -18,8 +18,8 @@
   file:
     path: "{{ prebid_server_target_dir }}"
     state: directory
-    owner: "sdev"
-    group: "sdev"
+    owner: "{{ prebid_server_user }}"
+    group: "{{ prebid_server_group }}"
     mode: 0755
 
 - name: ensure {{ prebid_server_log_dir }} exist
@@ -41,8 +41,8 @@
   copy:
     src: "{{ prebid_server_local_dir }}/conf/{{ prebid_server_conf }}"
     dest: "{{ prebid_server_target_dir }}/pbs.yml"
-    owner: "sdev"
-    group: "sdev"
+    owner: "{{ prebid_server_user }}"
+    group: "{{ prebid_server_group }}"
     mode: 0755
     force: yes
 
