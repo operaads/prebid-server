@@ -1,0 +1,31 @@
+{
+  "id": "123",
+  "test": 0,
+  "site": {
+    "page": "prebid.org"
+  },
+  "imp":[
+      {
+         "id":"imp123",
+         "banner":{
+            "format":[
+               {
+                  "w":300,
+                  "h":250
+               },
+               {
+                  "w":300,
+                  "h":600
+               }
+            ]
+         },
+         "ext":{
+            "pubmatic":{
+               "publisherId":"156276",
+               "adSlot":"pubmatic_test"
+            }
+         }
+      }
+   ],
+  "tmax": 5000
+}

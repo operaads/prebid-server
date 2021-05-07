@@ -24,6 +24,8 @@ func init() {
 }
 
 func main() {
+	var confName string
+	flag.StringVar(&confName, "conf", "pbs", "Specify config file name")
 	flag.Parse() // required for glog flags and testing package flags
 
 	bidderInfoPath, err := filepath.Abs(infoDirectory)
@@ -35,7 +37,7 @@ func main() {
 	if err != nil {
 		glog.Exitf("Unable to load bidder configurations: %v", err)
 	}
-	cfg, err := loadConfig(bidderInfos)
+	cfg, err := loadConfig(bidderInfos, confName)
 	if err != nil {
 		glog.Exitf("Configuration could not be loaded or did not pass validation: %v", err)
 	}
@@ -57,9 +59,9 @@ func main() {
 const configFileName = "pbs"
 const infoDirectory = "./static/bidder-info"
 
-func loadConfig(bidderInfos config.BidderInfos) (*config.Configuration, error) {
+func loadConfig(bidderInfos config.BidderInfos, confName string) (*config.Configuration, error) {
 	v := viper.New()
-	config.SetupViper(v, configFileName, bidderInfos)
+	config.SetupViper(v, confName, bidderInfos)
 	return config.New(v, bidderInfos, openrtb_ext.NormalizeBidderName)
 }
 

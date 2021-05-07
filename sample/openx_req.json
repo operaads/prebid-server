@@ -1,0 +1,34 @@
+{
+    "id": "123",
+    "test": 1,
+    "site":
+    {
+        "page": "prebid.org"
+    },
+    "imp": [
+    {
+        "id": "imp123",
+        "banner":
+        {
+            "format": [
+            {
+                "w": 728,
+                "h": 90
+            }]
+        },
+        "ext":
+        {
+            "openx":
+            {
+                "unit": "539439964",
+                "platform": "a3aece0c-9e80-4316-8deb-faf804779bd1",
+                "customParams":
+                {
+                    "key1": "v1",
+                    "key2": ["v2", "v3"]
+                }
+            }
+        }
+    }],
+    "tmax": 5000
+}

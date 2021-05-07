@@ -1,0 +1,3 @@
+port: 9100
+gdpr:
+  default_value: 0

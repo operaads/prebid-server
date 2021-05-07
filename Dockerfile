@@ -20,22 +20,25 @@ RUN go mod tidy
 RUN go mod vendor
 ARG TEST="true"
 RUN if [ "$TEST" != "false" ]; then ./validate.sh ; fi
-RUN go build -mod=vendor -ldflags "-X github.com/prebid/prebid-server/version.Ver=`git describe --tags | sed 's/^v//'` -X github.com/prebid/prebid-server/version.Rev=`git rev-parse HEAD`" .
+RUN go build -mod=vendor -ldflags "-X github.com/prebid/prebid-server/version.Ver=`git describe --tags | sed 's/^v//'` -X github.com/prebid/prebid-server/version.Rev=`git rev-parse HEAD`"
 
 FROM ubuntu:20.04 AS release
-LABEL maintainer="hans.hjort@xandr.com" 
+LABEL maintainer="hans.hjort@xandr.com"
+ARG configName="test.yml"
 WORKDIR /usr/local/bin/
 COPY --from=build /app/prebid-server .
+COPY conf/pro.yml pbs.yml
+COPY conf/test.yml pbs_test.yml
+COPY conf/sg_pro.yml sg_pbs.yml
+COPY conf/us_pro.yml us_pbs.yml
 RUN chmod a+xr prebid-server
+
 COPY static static/
 COPY stored_requests/data stored_requests/data
 RUN chmod -R a+r static/ stored_requests/data
-RUN apt-get update && \
-    apt-get install -y ca-certificates mtr && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN adduser prebid_user
 USER prebid_user
-EXPOSE 8000
+EXPOSE 9100
 EXPOSE 6060
 ENTRYPOINT ["/usr/local/bin/prebid-server"]
 CMD ["-v", "1", "-logtostderr"]
