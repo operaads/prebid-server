@@ -20,7 +20,7 @@
     state: directory
     owner: "{{ prebid_server_user }}"
     group: "{{ prebid_server_group }}"
-    mode: 0755
+    mode: 0777
 
 - name: ensure {{ prebid_server_log_dir }} exist
   become: yes
