@@ -26,10 +26,14 @@ FROM ubuntu:18.04 AS release
 ARG configName="test.yml"
 WORKDIR /usr/local/bin/
 COPY --from=build /app/prebid-server/prebid-server .
+<<<<<<< HEAD
 COPY conf/pro.yml pbs.yml
 COPY conf/test.yml pbs_test.yml
 COPY conf/sg_pro.yml sg_pbs.yml
 COPY conf/us_pro.yml us_pbs.yml
+=======
+COPY conf/${configName} pbs.yml
+>>>>>>> d454029e... [ADX-6180] add dockerfile
 COPY static static/
 COPY stored_requests/data stored_requests/data
 RUN apt-get update && \
