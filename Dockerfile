@@ -23,15 +23,16 @@ RUN if [ "$TEST" != "false" ]; then ./validate.sh ; fi
 RUN go build -mod=vendor -ldflags "-X github.com/prebid/prebid-server/version.Ver=`git describe --tags | sed 's/^v//'` -X github.com/prebid/prebid-server/version.Rev=`git rev-parse HEAD`" .
 
 FROM ubuntu:18.04 AS release
-LABEL maintainer="hans.hjort@xandr.com" 
+ARG configName="test.yml"
 WORKDIR /usr/local/bin/
 COPY --from=build /app/prebid-server/prebid-server .
+COPY conf/${configName} pbs.yml
 COPY static static/
 COPY stored_requests/data stored_requests/data
 RUN apt-get update && \
     apt-get install -y ca-certificates mtr && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EXPOSE 8000
+EXPOSE 9100
 EXPOSE 6060
 ENTRYPOINT ["/usr/local/bin/prebid-server"]
 CMD ["-v", "1", "-logtostderr"]
