@@ -22,9 +22,11 @@ func init() {
 }
 
 func main() {
+	var confName string
+	flag.StringVar(&confName, "conf", "pbs", "Specify config file name")
 	flag.Parse() // required for glog flags and testing package flags
 
-	cfg, err := loadConfig()
+	cfg, err := loadConfig(confName)
 	if err != nil {
 		glog.Exitf("Configuration could not be loaded or did not pass validation: %v", err)
 	}
@@ -43,11 +45,9 @@ func main() {
 	}
 }
 
-const configFileName = "pbs"
-
-func loadConfig() (*config.Configuration, error) {
+func loadConfig(confName string) (*config.Configuration, error) {
 	v := viper.New()
-	config.SetupViper(v, configFileName)
+	config.SetupViper(v, confName)
 	return config.New(v)
 }
 

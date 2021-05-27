@@ -1,0 +1,5 @@
+port: 9100
+metrics:
+  influxdb:
+    host: 'http://172.17.11.238:8086'
+    database: 'pbs'
