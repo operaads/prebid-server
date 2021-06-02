@@ -5,10 +5,20 @@
     "placementId": {
       "description": "Placement ID",
       "type": "string"
+    },
+    "endpointId": {
+      "description": "Endpoint ID",
+      "type": "string"
+    },
+    "publisherId": {
+      "description": "Publisher ID",
+      "type": "string"
     }
   },
   "required": [
-    "placementId"
+    "placementId",
+    "endpointId",
+    "publisherId"
   ],
   "title": "OperaAds Adapter Params",
   "type": "object"
