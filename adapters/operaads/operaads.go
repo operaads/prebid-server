@@ -133,7 +133,25 @@ func convertImpression(imp *openrtb2.Imp) error {
 		}
 		imp.Banner = bannerCopy
 	}
-
+	if imp.Native != nil && imp.Native.Request != "" {
+		v := map[string]interface{}{}
+		err := json.Unmarshal([]byte(imp.Native.Request), &v)
+		if err != nil {
+			return err
+		}
+		_, ok := v["native"]
+		if !ok {
+			body, err := json.Marshal(struct {
+				Native interface{} `json:"native"`
+			}{
+				Native: v,
+			})
+			if err != nil {
+				return err
+			}
+			imp.Native.Request = string(body)
+		}
+	}
 	return nil
 }
 
