@@ -1,3 +1,5 @@
+gdpr:
+  default_value: 0
 port: 9100
 metrics:
   influxdb:
