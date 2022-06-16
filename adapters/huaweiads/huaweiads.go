@@ -524,7 +524,7 @@ func getNativeFormat(adslot30 *adslot30, openRTBImp *openrtb2.Imp) error {
 	} else if numImage > 1 {
 		detailedCreativeTypeList = append(detailedCreativeTypeList, "904")
 	} else if numImage == 1 {
-		detailedCreativeTypeList = append(detailedCreativeTypeList, "909")
+		detailedCreativeTypeList = append(detailedCreativeTypeList, "901")
 	} else {
 		detailedCreativeTypeList = append(detailedCreativeTypeList, "913", "914")
 	}
