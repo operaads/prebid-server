@@ -60,13 +60,14 @@ const (
 )
 
 type huaweiAdsRequest struct {
-	Version   string     `json:"version"`
-	Multislot []adslot30 `json:"multislot"`
-	App       app        `json:"app"`
-	Device    device     `json:"device"`
-	Network   network    `json:"network,omitempty"`
-	Regs      regs       `json:"regs,omitempty"`
-	Geo       geo        `json:"geo,omitempty"`
+	Version           string     `json:"version"`
+	Multislot         []adslot30 `json:"multislot"`
+	App               app        `json:"app"`
+	Device            device     `json:"device"`
+	Network           network    `json:"network,omitempty"`
+	Regs              regs       `json:"regs,omitempty"`
+	Geo               geo        `json:"geo,omitempty"`
+	ClientAdRequestId string     `json:"clientAdRequestId,omitempty"`
 }
 
 type adslot30 struct {
@@ -280,6 +281,7 @@ func (a *adapter) MakeRequests(openRTBRequest *openrtb2.BidRequest,
 		multislot = append(multislot, adslot30)
 	}
 	request.Multislot = multislot
+	request.ClientAdRequestId = openRTBRequest.ID
 
 	countryCode, err := getHuaweiAdsReqJson(&request, openRTBRequest, huaweiAdsImpExt, a.extraInfo)
 	if err != nil {
